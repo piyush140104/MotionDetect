@@ -8,6 +8,11 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from ultralytics import YOLO
 
+import logging
+
+logger = logging.getLogger(__name__)
+
+
 # Upload directory
 UPLOAD_DIR = os.path.join(settings.BASE_DIR, "media/uploads")
 os.makedirs(UPLOAD_DIR, exist_ok=True)
@@ -59,6 +64,14 @@ def run_yoloseg_bytetrack(video_path, results_path):
     tracker_path = os.path.join(settings.BASE_DIR, "tracker/bytetrack.yml")
     # Load YOLO model
     model = YOLO(model_path)
+
+    if not os.path.exists(model_path):
+        logger.error(f"Model file missing at {model_path}")
+        raise FileNotFoundError(f"Model file missing at {model_path}")
+
+    if not os.path.exists(tracker_path):
+        logger.error(f"Tracker config missing at {tracker_path}")
+        raise FileNotFoundError(f"Tracker config missing at {tracker_path}")
 
     # Track video explicitly using your tracker YAML
     results = model.track(
