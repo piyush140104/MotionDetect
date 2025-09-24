@@ -61,7 +61,7 @@ def run_yoloseg_bytetrack(video_path, results_path):
     # model_path = "/Users/piyushgupta/Desktop/Projects/Labellar/campushiring/piyush_gupta/videotracker/tracker/model/best.pt"
     # tracker_path = "/Users/piyushgupta/.pyenv/versions/3.10.16/lib/python3.10/site-packages/ultralytics/cfg/trackers/bytetrack.yml"
     model_path = os.path.join(settings.BASE_DIR, "tracker/model/best.pt")
-    tracker_path = os.path.join(settings.BASE_DIR, "tracker/bytetrack.yml")
+    tracker_path = os.path.join(settings.BASE_DIR, "tracker/bytetrack.yaml")
     # Load YOLO model
     model = YOLO(model_path)
 
